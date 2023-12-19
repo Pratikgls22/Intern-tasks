@@ -1,4 +1,4 @@
-package StaticKeyWord;
+package KeyWord;
 
 class Employee{
     private int id;
