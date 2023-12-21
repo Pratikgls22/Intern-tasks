@@ -12,6 +12,9 @@ public class HashMapCode {
         Hm.put(1,"dkk");
         Hm.put(2,"wesc");
         Hm.put(3,"ccsd");
+
+        Hm.put(3,"ccsd");
+        Hm.put(4,"ccsd");
         //Hm.put(3,"ccscjsd");
         System.out.println(Hm);
 

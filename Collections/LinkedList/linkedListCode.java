@@ -1,9 +1,6 @@
 package LinkedList;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class linkedListCode {
     public static void main(String[] args) {
@@ -14,8 +11,11 @@ public class linkedListCode {
         list.add(29);
         list.add(56);
 
+
 // Creating Direct list without using add method
         LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(56,89,35,53));
+
+
 
 
 // for looping a list
@@ -23,6 +23,11 @@ public class linkedListCode {
         while(lik.hasNext()){
             System.out.println(lik.next());
         }
+
+        for (Integer integer : list) {
+            System.out.println(integer);
+        }
+
 // for removing element in the list
         list.remove(2);
         System.out.println(list);
@@ -33,6 +38,12 @@ public class linkedListCode {
 
 // for merge to list
         list.addAll(list2);
+
+        list.equals(list2);
+
         System.out.println(list);
+
+        list2.removeIf(n->n.equals(56));
+        System.out.println(list2);
     }
 }
