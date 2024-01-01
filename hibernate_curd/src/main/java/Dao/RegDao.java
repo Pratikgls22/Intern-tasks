@@ -32,4 +32,35 @@ public class RegDao {
         return serachList;
 
     }
+
+    public void delete(RegVo regVo){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(regVo);
+        transaction.commit();
+        session.close();
+    }
+
+    public List edit(RegVo regVo) {
+        List editUserList = new ArrayList();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from RegVo where id= '"+regVo.getId()+"'");
+        editUserList = query.list();
+        transaction.commit();
+        session.close();
+        return editUserList;
+    }
+
+    public void update(RegVo regVo) {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(regVo);
+        transaction.commit();
+        session.close();
+    }
 }

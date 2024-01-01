@@ -2,6 +2,10 @@ package Controller;
 
 import Dao.RegDao;
 import Vo.RegVo;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +24,27 @@ public class RegController extends HttpServlet {
 
         String flag = request.getParameter("flag");
 
-        if(flag.equals("insert")){
-            insert(request,response);
+        if (flag.equals("insert")) {
+            insert(request, response);
+            search(request, response);
+        } else if (flag.equals("update")) {
+            update(request,response);
             search(request,response);
         }
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response) {
+       int updateId = Integer.parseInt(request.getParameter("id"));
+        String updatefn = request.getParameter("fn");
+        String updateln = request.getParameter("ln");
+
+        RegVo regVo =new RegVo();
+        regVo.setId(updateId);
+        regVo.setFirstname(updatefn);
+        regVo.setLastname(updateln);
+
+        RegDao regDao = new RegDao();
+        regDao.update(regVo);
     }
 
     private void insert(HttpServletRequest request, HttpServletResponse response) {
@@ -33,17 +54,54 @@ public class RegController extends HttpServlet {
 
         RegDao regDao = new RegDao();
         regDao.save(regVo);
+
     }
+
     protected void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List searchList = new ArrayList<>();
+
         RegDao regDao = new RegDao();
         searchList = regDao.search();
 
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("searchList",searchList);
+        httpSession.setAttribute("searchList", searchList);
         response.sendRedirect("searchList.jsp");
     }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    private void delete(HttpServletRequest request, HttpServletResponse response) {
+        int deleteId = Integer.parseInt(request.getParameter("id"));
+
+        RegVo regVo = new RegVo();
+        regVo.setId(deleteId);
+
+        RegDao regDao = new RegDao();
+        regDao.delete(regVo);
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String flag = request.getParameter("flag");
+
+        if (flag.equals("search")){
+            search(request,response);
+        }else if (flag.equals("delete")) {
+            delete(request,response);
+            search(request,response);
+        } else if (flag.equals("edit")) {
+            edit(request,response);
+            response.sendRedirect("editPage.jsp");
+        }
+    }
+
+    private void edit(HttpServletRequest request, HttpServletResponse response) {
+        int editId = Integer.parseInt(request.getParameter("id"));
+
+        RegVo regVo = new RegVo();
+        regVo.setId(editId);
+
+        List editData = new ArrayList();
+        RegDao regDao = new RegDao();
+        editData = regDao.edit(regVo);
+
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("Data",editData);
     }
 }
