@@ -26,17 +26,48 @@ public class RegController extends HttpServlet{
         } else if (flag.equals("delete")) {
             delete(req,resp);
         }
+        else if(flag.equals("edit")){
+            edit(req,resp);
+        }
     }
 
-    private void delete(HttpServletRequest req, HttpServletResponse resp) {
-        int deleteId = Integer.parseInt(req.getParameter("id"));
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int editId = Integer.parseInt(req.getParameter("id"));
+
         RegVo regVo = new RegVo();
-        regVo.setId(deleteId);
-//        LoginVo loginVo = new LoginVo();
-//        loginVo.setParent(regVo);
+        regVo.setId(editId);
 
         RegDao regDao = new RegDao();
+        List<RegVo> list = regDao.findById(regVo);
+//        list = regDao.edit(regVo);
+
+        HttpSession httpSession = req.getSession();
+        httpSession.setAttribute("Data",editId);
+
+        resp.sendRedirect("edit.jsp");
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int deleteId = Integer.parseInt(req.getParameter("id"));
+
+        RegVo regVo = new RegVo();
+        regVo.setId(deleteId);
+
+        RegDao regDao = new RegDao();
+
+        List<RegVo> findId=regDao.findById(regVo);
+
+        RegVo vo = findId.get(0);
+
+        LoginVo loginVo = vo.getLoginVo();
+
+        LoginDao loginDao =new LoginDao();
+
         regDao.delete(regVo);
+        loginDao.delete(loginVo);
+
+
+        resp.sendRedirect("RegController?flag=search");
     }
 
     @Override
@@ -45,7 +76,27 @@ public class RegController extends HttpServlet{
         if(flag.equals("insert")){
             insert(req,resp);
             search(req,resp);
+        } else if (flag.equals("update")) {
+            update(req,resp);
         }
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp) {
+        int updateId = Integer.parseInt(req.getParameter("id"));
+        String updateFn =req.getParameter("firstname");
+        String updateLn = req.getParameter("lastname");
+        String updateEmail = req.getParameter("email");
+        String updatePass = req.getParameter("pass");
+
+        RegVo regVo = new RegVo();
+        regVo.setId(updateId);
+        regVo.setFirstname(updateFn);
+        regVo.setLastname(updateLn);
+        RegDao regDao = new RegDao();
+        regDao.update(regVo);
+
+//        HttpSession httpSession = req.getSession();
+//        httpSession.setAttribute("updateList",);
     }
 
     private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

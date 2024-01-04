@@ -14,6 +14,17 @@ public class LoginVo {
     @Column(name = "loginPass")
     private String pass;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private RegVo regVo;
+
+    public RegVo getRegVo() {
+        return regVo;
+    }
+
+    public void setRegVo(RegVo regVo) {
+        this.regVo = regVo;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,6 +1,6 @@
-package oneToOne.dao;
+package oneToMany.dao;
 
-import oneToOne.vo.LoginVo;
+import oneToMany.vo.EmpVo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,33 +10,24 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginDao {
-
-    public void save(LoginVo loginVo) {
+public class EmpDao {
+    public void save(EmpVo empVo) {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(loginVo);
+        session.save(empVo);
         transaction.commit();
         session.close();
     }
+
     public List search() {
         List serachList =  new ArrayList();
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from LoginVo");
+        Query query = session.createQuery("from EmpVo");
         serachList = query.list();
         session.close();
         return serachList;
-    }
-
-    public void delete(LoginVo loginVo) {
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(loginVo);
-        transaction.commit();
-        session.close();
     }
 }

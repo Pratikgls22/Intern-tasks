@@ -40,4 +40,33 @@ public class RegDao {
         transaction.commit();
         session.close();
     }
+
+    public List<RegVo> findById(RegVo regVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM  RegVo where id='"+regVo.getId()+"'");
+        List<RegVo> findId = query.list();
+        return findId;
+    }
+
+    public List<RegVo> edit(RegVo regVo) {
+        List<RegVo> regVoList =new ArrayList<>();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from RegVo where id = '"+regVo.getId()+"'");
+        regVoList = query.list();
+        transaction.commit();
+        session.close();
+        return regVoList;
+    }
+
+    public void update(RegVo regVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(regVo);
+        transaction.commit();
+        session.close();
+    }
 }

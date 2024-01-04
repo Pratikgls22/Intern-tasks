@@ -15,7 +15,7 @@ public class RegVo {
     @Column(name = "lastname")
     private String lastname;
 
-    @OneToOne(targetEntity = LoginVo.class ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "loginId")
     private LoginVo loginVo;
 
