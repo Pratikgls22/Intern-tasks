@@ -15,4 +15,23 @@ public class CompanyDao {
         transaction.commit();
         session.close();
     }
+
+    public void delete(CompanyVo companyVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(companyVo);
+        transaction.commit();
+        session.close();
+    }
+
+    public void update(CompanyVo companyVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(companyVo);
+        transaction.commit();
+        session.close();
+    }
+
 }

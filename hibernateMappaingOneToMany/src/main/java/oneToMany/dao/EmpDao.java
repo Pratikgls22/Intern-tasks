@@ -11,6 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpDao {
+    public static List<EmpVo> findById(EmpVo empVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from EmpVo where id = '" + empVo.getId() + "'");
+        List<EmpVo> findId = query.list();
+        return findId;
+    }
+
     public void save(EmpVo empVo) {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
@@ -29,5 +37,37 @@ public class EmpDao {
         serachList = query.list();
         session.close();
         return serachList;
+    }
+
+    public void delete(EmpVo empVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(empVo);
+        transaction.commit();
+        session.close();
+    }
+
+
+
+    public List<EmpVo> edit(EmpVo empVo) {
+        List<EmpVo> empEdit = new ArrayList<>();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from EmpVo where id = '"+empVo.getId()+"'");
+        empEdit = query.list();
+        transaction.commit();
+        session.close();
+        return empEdit;
+    }
+
+    public void update(EmpVo empVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(empVo);
+        transaction.commit();
+        session.close();
     }
 }

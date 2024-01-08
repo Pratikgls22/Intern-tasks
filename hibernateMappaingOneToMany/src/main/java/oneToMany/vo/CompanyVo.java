@@ -14,7 +14,7 @@ public class CompanyVo {
     private String department;
     @Column(name = "coPost")
     private String post;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private List<EmpVo> employee;
 
 

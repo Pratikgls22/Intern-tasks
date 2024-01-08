@@ -59,7 +59,7 @@ public class RegController extends HttpServlet{
 
         RegVo vo = findId.get(0);
 
-        LoginVo loginVo = vo.getLoginVo();
+        LoginVo loginVo = vo.getLo                                                                                                                                              ginVo();
 
         LoginDao loginDao =new LoginDao();
 
@@ -82,7 +82,7 @@ public class RegController extends HttpServlet{
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) {
-        int updateId = Integer.parseInt(req.getParameter("id"));
+            int updateId = Integer.parseInt(req.getParameter("id"));
         String updateFn =req.getParameter("firstname");
         String updateLn = req.getParameter("lastname");
         String updateEmail = req.getParameter("email");
