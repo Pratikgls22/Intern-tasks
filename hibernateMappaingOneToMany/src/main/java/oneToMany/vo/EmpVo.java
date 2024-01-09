@@ -25,4 +25,5 @@ public class EmpVo {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "comId")
     private CompanyVo company;
+
 }

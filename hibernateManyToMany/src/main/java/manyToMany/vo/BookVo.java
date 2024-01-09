@@ -20,8 +20,12 @@ public class BookVo {
     @Column(name = "bName")
     private String bName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "aId",referencedColumnName = "aId")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Book_Author",
+            joinColumns = @JoinColumn(name = "bId"),
+            inverseJoinColumns = @JoinColumn(name = "aId")
+    )
     private List<AuthorVo> author;
 
 }

@@ -47,7 +47,7 @@ public class RegController extends HttpServlet{
         resp.sendRedirect("edit.jsp");
     }
 
-    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
         int deleteId = Integer.parseInt(req.getParameter("id"));
 
         RegVo regVo = new RegVo();
@@ -59,7 +59,7 @@ public class RegController extends HttpServlet{
 
         RegVo vo = findId.get(0);
 
-        LoginVo loginVo = vo.getLo                                                                                                                                              ginVo();
+        LoginVo loginVo = vo.getLoginVo();                                                                                                                                         init();
 
         LoginDao loginDao =new LoginDao();
 

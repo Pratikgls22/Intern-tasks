@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Authors")
@@ -21,7 +22,6 @@ public class AuthorVo {
     private String authorName;
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "author")
-//    @JoinColumn(name = "bId")
-    private List<BookVo> books ;
+    private Set<BookVo> books ;
 
 }
