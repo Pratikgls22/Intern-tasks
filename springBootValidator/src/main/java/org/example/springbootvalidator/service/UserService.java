@@ -11,13 +11,8 @@ import java.util.Optional;
 public interface UserService {
 
     User add(UserRequestDTO userRequestDTO);
-
-
     List<User> search();
-
     Optional<User> getUserID(long id);
-
     String delete(long id);
-
     User update(long id, UserRequestDTO userRequestDTO);
 }
