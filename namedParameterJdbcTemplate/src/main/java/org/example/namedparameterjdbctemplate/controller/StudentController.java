@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/jdbcT")
+@RequestMapping("/named")
 public class StudentController {
 
     private final StudentService studentService;
