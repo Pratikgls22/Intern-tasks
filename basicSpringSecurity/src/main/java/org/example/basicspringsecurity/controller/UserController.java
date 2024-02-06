@@ -15,17 +15,17 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/add")
-    public User create(@RequestBody User user){
+    public User create(@RequestBody User user) {
         return userService.create(user);
     }
 
     @GetMapping("/search")
-    public List<User> search(){
+    public List<User> search() {
         return userService.search();
     }
 
     @GetMapping("/search/{name}")
-    public User searchId(@PathVariable String name){
+    public User searchId(@PathVariable String name) {
         return userService.searchId(name);
     }
 }

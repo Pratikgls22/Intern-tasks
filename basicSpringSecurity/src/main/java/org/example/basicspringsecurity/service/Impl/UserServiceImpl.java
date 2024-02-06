@@ -22,7 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        return (User) this.userList;
+        System.out.println(userList);
+         this.userList.add(user);
+         return user;
     }
 
     @Override
