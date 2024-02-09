@@ -19,11 +19,11 @@ public class CloudVendorServiceImpl implements CloudVendorService {
 
     @Override
     public CloudVendor create(CloudVendorRequestDTO cloudVendorRequestDTO) {
-       CloudVendor cloudVendor = new CloudVendor();
-       cloudVendor.setName(cloudVendorRequestDTO.getName());
-       cloudVendor.setAddress(cloudVendorRequestDTO.getAddress());
-       cloudVendor.setPhone(cloudVendorRequestDTO.getPhone());
-       return cloudVendorDao.save(cloudVendor);
+        CloudVendor cloudVendor = new CloudVendor();
+        cloudVendor.setName(cloudVendorRequestDTO.getName());
+        cloudVendor.setAddress(cloudVendorRequestDTO.getAddress());
+        cloudVendor.setPhone(cloudVendorRequestDTO.getPhone());
+        return cloudVendorDao.save(cloudVendor);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CloudVendorServiceImpl implements CloudVendorService {
 
     @Override
     public Optional<CloudVendor> searchId(Long id) {
-        if (cloudVendorDao.findById(id).isEmpty()){
+        if (cloudVendorDao.findById(id).isEmpty()) {
             throw new CloudVendorNotFoundException("Request Cloud Vendor Doesn't Exist");
         }
         return cloudVendorDao.findById(id);
@@ -51,10 +51,9 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     @Override
     public CloudVendor delete(long id) {
         Optional<CloudVendor> vendor = cloudVendorDao.findById(id);
-        if (vendor.isEmpty()){
+        if (vendor.isEmpty()) {
             throw new CloudVendorNotFoundException("Check your Id");
-        }
-        else {
+        } else {
             CloudVendor cloudVendor = vendor.get();
             cloudVendorDao.delete(cloudVendor);
             return cloudVendor;

@@ -1,6 +1,8 @@
 package org.example.swaggeruispringboot.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.swaggeruispringboot.dto.UserDto;
 import org.example.swaggeruispringboot.model.User;
 import org.example.swaggeruispringboot.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,9 +20,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<User> create(@RequestBody User user) {
-        user = userService.create(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public User create(@Valid @RequestBody UserDto userDto) {
+        return userService.create(userDto);
     }
 
     @GetMapping("/search")
@@ -29,13 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<User> searchId(@PathVariable Long id) {
+    public Optional<User> searchId(@PathVariable Long id) {
         return userService.serachId(id);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user){
-        User update = userService.update(id, user);
-        return new ResponseEntity<>(update,HttpStatus.OK);
+    public User update(@PathVariable Long id, @RequestBody UserDto userDto){
+       return userService.update(id,userDto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public User delete(@PathVariable Long id){
+        return userService.delete(id);
     }
 }

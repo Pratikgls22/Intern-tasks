@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
     public List<User> search() {
         return this.userService.search();
     }

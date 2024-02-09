@@ -1,16 +1,19 @@
 package org.example.swaggeruispringboot.service;
 
+import org.example.swaggeruispringboot.dto.UserDto;
 import org.example.swaggeruispringboot.model.User;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    User create(User user);
+    User create(UserDto userDto);
 
     List<User> search();
 
-    ResponseEntity<User> serachId(Long id);
+    Optional<User> serachId(Long id);
 
-    User update(Long id, User user);
+    User update(Long id, UserDto userDto);
+
+    User delete(Long id);
 }
