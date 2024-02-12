@@ -1,6 +1,7 @@
 package org.example.jwtspringsecurity.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.jwtspringsecurity.dto.UserDto;
 import org.example.jwtspringsecurity.model.User;
 import org.example.jwtspringsecurity.requestDto.UserRequestDto;
 import org.example.jwtspringsecurity.service.JwtService;
@@ -8,6 +9,7 @@ import org.example.jwtspringsecurity.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,8 @@ public class UserController {
     private final JwtService jwtService;
 
     @PostMapping("/add")
-    public User create(@RequestBody User user) {
-        return this.userService.create(user);
+    public User create(@Valid @RequestBody UserDto userDto) {
+        return this.userService.create(userDto);
     }
 
     @GetMapping("/search")
@@ -38,8 +40,8 @@ public class UserController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public User update(@PathVariable Long id, @RequestBody User user) {
-        return this.userService.update(id, user);
+    public User update(@PathVariable Long id, @Valid @RequestBody UserDto userDto) {
+        return this.userService.update(id, userDto);
     }
 
     @DeleteMapping("/delete/{id}")

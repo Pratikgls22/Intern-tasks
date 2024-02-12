@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -40,11 +41,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         return security
                 .csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/jwt/add","/jwt/auth").permitAll().
-                and().
-                authorizeHttpRequests().requestMatchers("/jwt/**").
-                authenticated().
-                and()
+                .authorizeHttpRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -60,4 +59,12 @@ public class SecurityConfig {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
+
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/user/authenticate"
+            // other public endpoints of your API may be appended to this array
+    };
 }
