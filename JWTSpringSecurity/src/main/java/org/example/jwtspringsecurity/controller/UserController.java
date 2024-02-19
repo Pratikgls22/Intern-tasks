@@ -1,5 +1,6 @@
 package org.example.jwtspringsecurity.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.jwtspringsecurity.dto.UserDto;
 import org.example.jwtspringsecurity.model.User;
@@ -22,6 +23,12 @@ public class UserController {
     private final JwtService jwtService;
 
     @PostMapping("/add")
+    @Operation(summary = "Used to Update Data into Database", description =
+            "-Name is required " +
+                    "- email should contain@  " +
+                    "- Password must be 6  " +
+                    "- Role should in capital ex:'ROLE_USER'"
+    )
     public User create(@Valid @RequestBody UserDto userDto) {
         return this.userService.create(userDto);
     }

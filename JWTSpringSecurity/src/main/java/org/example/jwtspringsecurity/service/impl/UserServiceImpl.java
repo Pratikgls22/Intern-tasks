@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     public User update(Long id, UserDto userDto) {
         User user1 = userDao.findById(id).orElseThrow(() -> new RuntimeException("id is not valid !!"));
         user1.setName(userDto.getName());
-        user1.setPassword(userDto.getPassword());
+        user1.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user1.setEmail(userDto.getEmail());
         user1.setRoles(userDto.getRoles());
         return userDao.save(user1);
