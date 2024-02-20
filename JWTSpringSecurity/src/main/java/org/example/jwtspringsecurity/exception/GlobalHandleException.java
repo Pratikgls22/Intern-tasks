@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,18 @@ public class GlobalHandleException extends Exception{
             String message = error.getDefaultMessage();
             stringMap.put(fieldName,message);
         });
-        return new ResponseEntity<>(stringMap,HttpStatus.CREATED);
+        return new ResponseEntity<>(stringMap,HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException e, WebRequest webRequest)
+    {
+         UserException userException = new UserException(
+                          e.getMessage(),
+                          e.getCause(),
+                 HttpStatus.NOT_FOUND,
+                 webRequest.getDescription(false)
+                 );
+         return new ResponseEntity<>(userException,HttpStatus.NOT_FOUND);
     }
 }

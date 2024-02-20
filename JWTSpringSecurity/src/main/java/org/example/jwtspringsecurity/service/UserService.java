@@ -1,20 +1,20 @@
 package org.example.jwtspringsecurity.service;
 
 import org.example.jwtspringsecurity.dto.UserDto;
+import org.example.jwtspringsecurity.exception.UserNotFoundException;
 import org.example.jwtspringsecurity.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     User create(UserDto userDto);
 
     List<User> search();
 
-    Optional<User> searchId(Long id);
+    User searchId(Long id) throws UserNotFoundException;
 
-    User update(Long id, UserDto userDto);
+    User update(Long id, UserDto userDto) throws UserNotFoundException;
 
-    User delete(Long id);
+    User delete(Long id) throws UserNotFoundException;
 
 }

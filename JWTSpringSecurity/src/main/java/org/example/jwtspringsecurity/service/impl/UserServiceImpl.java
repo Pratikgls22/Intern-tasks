@@ -2,6 +2,7 @@ package org.example.jwtspringsecurity.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.jwtspringsecurity.dto.UserDto;
+import org.example.jwtspringsecurity.exception.UserNotFoundException;
 import org.example.jwtspringsecurity.model.User;
 import org.example.jwtspringsecurity.repositry.UserDao;
 import org.example.jwtspringsecurity.service.UserService;
@@ -10,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserDto userDto) {
-        User user = this.modelMapper.map(userDto,User.class);
+        User user = this.modelMapper.map(userDto, User.class);
 //        User user = new User();
 //        user.setName(userDto.getName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -38,13 +38,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> searchId(Long id) {
-        return userDao.findById(id);
+    public User searchId(Long id) throws UserNotFoundException {
+        User user = userDao.findById(id).
+                orElseThrow(() -> new UserNotFoundException("Id not found !!"));
+        return user;
     }
 
     @Override
-    public User update(Long id, UserDto userDto) {
-        User user1 = userDao.findById(id).orElseThrow(() -> new RuntimeException("id is not valid !!"));
+    public User update(Long id, UserDto userDto) throws UserNotFoundException {
+        User user1 = userDao.findById(id).orElseThrow(() -> new UserNotFoundException("Id not found !!"));
         user1.setName(userDto.getName());
         user1.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user1.setEmail(userDto.getEmail());
@@ -53,9 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User delete(Long id) {
-        userDao.deleteById(id);
-        return null;
+    public User delete(Long id) throws UserNotFoundException {
+
+        User user = this.userDao.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Id not found"));
+        return user;
     }
 
 }
