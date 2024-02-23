@@ -1,0 +1,20 @@
+server:
+  port: 8084
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://0.0.0.0:8080/realms/springboot/protocol/openid-connect/certs
+          issuer-uri: http://0.0.0.0:8080/realms/springboot
+
+
+jwt:
+  auth:
+    converter:
+      resource-id: springbootkeycloak
+      principle-attribute: preferred_username
+
+logging:
+  level:
+    root: debug

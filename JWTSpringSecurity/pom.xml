@@ -85,6 +85,9 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${spring-doc.version}</version>
         </dependency>
+
+
+
         <!-- Spring doc Web MVC Core-->
         <dependency>
             <groupId>org.springdoc</groupId>

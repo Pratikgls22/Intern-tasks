@@ -18,24 +18,19 @@ public class UserController {
 
     @GetMapping("/home")
     public String home(OAuth2AuthenticationToken authentication) {
-       try {
-           if (authentication != null) {
-               OAuth2AuthorizedClient authorizedClient =
-                       this.authorizedClientService.loadAuthorizedClient(
-                               authentication.getAuthorizedClientRegistrationId(),
-                               authentication.getName());
+        if (authentication != null) {
+            OAuth2AuthorizedClient authorizedClient =
+                    this.authorizedClientService.loadAuthorizedClient(
+                            authentication.getAuthorizedClientRegistrationId(),
+                            authentication.getName());
 
-               OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+            OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
 
-               log.info("accessToken = " + accessToken);
-               log.info("accessToken.getTokenValue() = \n Your Token=" + accessToken.getTokenValue());
-           } else {
-               return "You don't have Bearer Code !!";
-           }
-       }catch (Exception e) {
-           // Handle the exception
-           return "An error occurred: " + e.getMessage();
-       }
+            log.info("accessToken = " + accessToken);
+            log.info("accessToken.getTokenValue() = \n Your Token \n-------->" + accessToken.getTokenValue());
+        } else {
+            return "You don't have Bearer Code !!";
+        }
         return "Welcome to Home Page !!";
     }
 }
