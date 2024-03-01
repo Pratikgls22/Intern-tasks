@@ -1,5 +1,7 @@
 package org.example.jwtspringsecurity;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -8,6 +10,7 @@ class JwtSpringSecurityApplicationTests {
 
     @Test
     void contextLoads() {
+        Assertions.assertDoesNotThrow(()->{});
     }
 
 }

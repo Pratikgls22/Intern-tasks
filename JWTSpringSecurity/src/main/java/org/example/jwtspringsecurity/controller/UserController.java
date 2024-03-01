@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.jwtspringsecurity.dto.UserDto;
 import org.example.jwtspringsecurity.exception.UserNotFoundException;
 import org.example.jwtspringsecurity.model.User;
-import org.example.jwtspringsecurity.requestDto.UserRequestDto;
+import org.example.jwtspringsecurity.requestdto.UserRequestDto;
 import org.example.jwtspringsecurity.service.JwtService;
 import org.example.jwtspringsecurity.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;

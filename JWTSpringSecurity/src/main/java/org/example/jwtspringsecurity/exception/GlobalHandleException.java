@@ -25,9 +25,9 @@ public class GlobalHandleException extends Exception{
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException e, WebRequest webRequest)
+    public ResponseEntity<UserExcep> handleUserNotFoundException(UserNotFoundException e, WebRequest webRequest)
     {
-         UserException userException = new UserException(
+         UserExcep userException = new UserExcep(
                           e.getMessage(),
                           e.getCause(),
                  HttpStatus.NOT_FOUND,
@@ -35,4 +35,17 @@ public class GlobalHandleException extends Exception{
                  );
          return new ResponseEntity<>(userException,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest webRequest) {
+        // Create error response
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                ex.getCause(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                webRequest.getDescription(false)
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

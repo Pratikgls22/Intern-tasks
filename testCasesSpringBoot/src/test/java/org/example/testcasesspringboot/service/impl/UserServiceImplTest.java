@@ -1,6 +1,6 @@
-package org.example.testcasesspringboot.service.Impl;
+package org.example.testcasesspringboot.service.impl;
 
-import org.example.testcasesspringboot.model.User;
+import org.example.testcasesspringboot.entity.User;
 import org.example.testcasesspringboot.repositry.UserDao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

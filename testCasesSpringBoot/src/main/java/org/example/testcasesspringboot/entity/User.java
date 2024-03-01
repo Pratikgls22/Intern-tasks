@@ -1,4 +1,4 @@
-package org.example.testcasesspringboot.model;
+package org.example.testcasesspringboot.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;

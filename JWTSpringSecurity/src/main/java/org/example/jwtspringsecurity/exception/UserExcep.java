@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 
-public class UserException {
+public class UserExcep {
     private final String message;
     private final Throwable throwable;
     private final HttpStatus httpStatus;

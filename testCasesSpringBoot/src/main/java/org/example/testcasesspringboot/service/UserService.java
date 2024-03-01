@@ -1,6 +1,6 @@
 package org.example.testcasesspringboot.service;
 
-import org.example.testcasesspringboot.model.User;
+import org.example.testcasesspringboot.entity.User;
 
 import java.util.List;
 

@@ -23,12 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(UserDto userDto) {
         User user = this.modelMapper.map(userDto, User.class);
-//        User user = new User();
-//        user.setName(userDto.getName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        user.setEmail(userDto.getEmail());
-//        user.setRoles(userDto.getRoles());
-//      user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDao.save(user);
     }
 
@@ -39,9 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User searchId(Long id) throws UserNotFoundException {
-        User user = userDao.findById(id).
+        return userDao.findById(id).
                 orElseThrow(() -> new UserNotFoundException("Id not found !!"));
-        return user;
     }
 
     @Override
@@ -57,9 +51,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User delete(Long id) throws UserNotFoundException {
 
-        User user = this.userDao.findById(id)
+       return this.userDao.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Id not found"));
-        return user;
+
     }
 
 }

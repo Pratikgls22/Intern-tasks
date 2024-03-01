@@ -1,7 +1,7 @@
-package org.example.testcasesspringboot.service.Impl;
+package org.example.testcasesspringboot.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.testcasesspringboot.model.User;
+import org.example.testcasesspringboot.entity.User;
 import org.example.testcasesspringboot.repositry.UserDao;
 import org.example.testcasesspringboot.service.UserService;
 import org.springframework.stereotype.Service;
@@ -38,16 +38,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(Long id, User user) {
-        Optional<User> optionalUser = userDao.findById(id);
+        Optional<User> optionalUser = Optional.ofNullable(userDao.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Id Does not Exist!!")));
+
         optionalUser.get().setName(user.getName());
         optionalUser.get().setCity(user.getCity());
         optionalUser.get().setPhone(user.getPhone());
-        return userDao.save(optionalUser.get());
 
-//        User user1 = userDao.findById(id).orElseThrow(()-> new RuntimeException("Data Not Updated !!"));
-//        user1.setName(user.getName());
-//        user1.setCity(user.getCity());
-//        user1.setPhone(user.getPhone());
-//        return userDao.save(user1);
+        return userDao.save(optionalUser.get());
     }
 }

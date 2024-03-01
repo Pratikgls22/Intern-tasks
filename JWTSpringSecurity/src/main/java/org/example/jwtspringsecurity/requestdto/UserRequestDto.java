@@ -1,4 +1,4 @@
-package org.example.jwtspringsecurity.requestDto;
+package org.example.jwtspringsecurity.requestdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

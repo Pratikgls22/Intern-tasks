@@ -1,5 +1,9 @@
 package org.example.projection_springboot.enums;
 
+import lombok.Getter;
+
+
+@Getter
 public enum CommonEnums {
     EXCEPTION_MSG("User Not Found");
     private String errors;
@@ -8,11 +12,4 @@ public enum CommonEnums {
         this.errors = errors;
     }
 
-    public String getErrors() {
-        return errors;
-    }
-
-    public void setErrors(String errors) {
-        this.errors = errors;
-    }
 }

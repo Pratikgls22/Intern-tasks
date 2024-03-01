@@ -1,6 +1,6 @@
-package org.example.projection_springboot.service.Impl;
+package org.example.projection_springboot.service.impl;
 
-import lombok.RequiredArgsConstructor;
+import  lombok.RequiredArgsConstructor;
 import org.example.projection_springboot.dto.ProductProjectionDTO;
 import org.example.projection_springboot.dto.ProductResponseDTO;
 import org.example.projection_springboot.dto.RegisterRequestDTO;
@@ -48,8 +48,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponseDTO> search() {
         try {
-            return this.productRepo.findAll().stream().
-            map(this::mapToProductResponseDto).collect(Collectors.toList());
+            return this.productRepo.findAll().stream()
+                    .map(this::mapToProductResponseDto)
+                    .toList();
         }
         catch (CustomException e) {
             throw new CustomException(e.getMessage(), e.getHttpStatus());
@@ -61,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             var product = this.productRepo.findById(id);
             if (product.isEmpty()) {
-                throw new CustomException("Product Not Found", HttpStatus.NOT_FOUND);
+                throw new CustomException("Product IS Not Found", HttpStatus.NOT_FOUND);
 
             }
             return this.modelMapper.map(product.get(), ProductResponseDTO.class);
@@ -95,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             var product = productRepo.findById(id);
             if (product.isEmpty()) {
-                throw new CustomException("Product Not Found", HttpStatus.NOT_FOUND);
+                throw new CustomException("ProductS Not Found", HttpStatus.NOT_FOUND);
             }
             this.productRepo.deleteById(id);
         } catch (CustomException e) {
@@ -106,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductProjectionDTO> projection() {
         List<ProductProjection> productProjections = this.productRepo.getProductsWithRequeriedAttributes();
-        List<ProductProjectionDTO> productDTOS = new ArrayList<ProductProjectionDTO>();
+        List<ProductProjectionDTO> productDTOS = new ArrayList<>();
         for (ProductProjection projection : productProjections ){
             productDTOS.add(new ProductProjectionDTO(
                     projection.getId(),

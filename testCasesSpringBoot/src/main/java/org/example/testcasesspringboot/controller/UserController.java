@@ -2,7 +2,7 @@ package org.example.testcasesspringboot.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.testcasesspringboot.model.User;
+import org.example.testcasesspringboot.entity.User;
 import org.example.testcasesspringboot.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

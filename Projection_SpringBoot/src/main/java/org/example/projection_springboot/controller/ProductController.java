@@ -2,18 +2,14 @@ package org.example.projection_springboot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.projection_springboot.dto.ApiResponse;
-import org.example.projection_springboot.dto.ProductProjectionDTO;
-import org.example.projection_springboot.dto.ProductResponseDTO;
 import org.example.projection_springboot.dto.RegisterRequestDTO;
-import org.example.projection_springboot.entity.Product;
 import org.example.projection_springboot.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/product")
