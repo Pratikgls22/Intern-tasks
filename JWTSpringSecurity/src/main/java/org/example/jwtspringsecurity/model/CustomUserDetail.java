@@ -1,6 +1,5 @@
 package org.example.jwtspringsecurity.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +16,7 @@ public class CustomUserDetail implements UserDetails {
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public CustomUserDetail(User user) {
+    public CustomUserDetail(Users user) {
         name = user.getName();
         password = user.getPassword();
         authorities = Arrays.stream(user.getRoles().split(","))
