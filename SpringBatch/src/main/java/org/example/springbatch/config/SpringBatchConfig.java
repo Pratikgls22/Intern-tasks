@@ -34,7 +34,7 @@ public class SpringBatchConfig {
     @Bean
     public FlatFileItemReader<Customer> customerReader(){
         FlatFileItemReader<Customer> itemReader = new FlatFileItemReader<>();
-        itemReader.setResource(new FileSystemResource("/home/dev1071/Downloads/customers.csv"));
+        itemReader.setResource(new FileSystemResource("/home/dev1071/Downloads/customers.xlsx"));
         itemReader.setName("csv-reader");
         itemReader.setLinesToSkip(1);                                  // skin first row in csv file
         itemReader.setLineMapper(lineMapper());                       //csv data convert into java object
